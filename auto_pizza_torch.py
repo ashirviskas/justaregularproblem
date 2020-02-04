@@ -32,7 +32,7 @@ def get_nondiscrete_score(m, n, all_s, selected, scale):
     hard_points = (all_s * hard_selection).sum()
 
     if hard_points > m:
-        points = - points * (selection.sum()) / 100
+        points = m - ((points - m))
         hard_points = 0
 
     return points, hard_points
@@ -49,11 +49,12 @@ def get_loss_function(m):
     zero = torch.tensor(0, dtype=torch.float)
 
     def loss(score):
-        return mse((m - score), zero)
+        return (m - score) / m
     return loss
 
 
 def compute_best(m, n, all_s):
+    m, n = torch.tensor(m), torch.tensor(n)
     lr = 0.0001
     lr_decay = 1
     selected = torch.empty(n).normal_(mean=0.5, std=0.0001)
@@ -94,7 +95,6 @@ def main(filename):
         scores.append(score)
     score_av = np.average(scores)
     print(score_av)
-
 
 
 if __name__ == '__main__':
