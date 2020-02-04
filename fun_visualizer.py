@@ -18,7 +18,7 @@ def function_t(x, scale):
 
 def plot_fun():
     og_values = np.arange(-1, 3, 0.001)
-    y = [function_t(x, 2) for x in og_values]
+    y = [function_t(x, 1) for x in og_values]
     plt.plot(og_values, y)
     plt.show()
 
