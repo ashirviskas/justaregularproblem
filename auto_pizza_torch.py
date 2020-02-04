@@ -32,7 +32,7 @@ def get_nondiscrete_score(m, n, all_s, selected, scale):
     hard_points = (all_s * hard_selection).sum()
 
     if hard_points > m:
-        points = points / (selection.sum() ** 3)
+        points = - points * (selection.sum()) / 100
         hard_points = 0
 
     return points, hard_points
@@ -45,8 +45,11 @@ def write_file(n, sample, filename):
 
 
 def get_loss_function(m):
+    mse = torch.nn.MSELoss()
+    zero = torch.tensor(0, dtype=torch.float)
+
     def loss(score):
-        return (m - score) / m
+        return mse((m - score), zero)
     return loss
 
 
