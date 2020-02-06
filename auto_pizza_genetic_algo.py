@@ -64,8 +64,6 @@ def breed_and_mutate(population, scores, breed_pop=50, mutate_pop=20, recreate=1
 
 def main(filename):
     m, n, all_s = read_file(filename + '.in')
-    best_score = 0
-    best_sample = []
     population_size = 100
     population = []
     for j in range(population_size):
@@ -85,9 +83,10 @@ def main(filename):
         scores = sort_scores(scores)
         print(scores[0])
         breed_and_mutate(population, scores, breed_pop=70, mutate_pop=20)
-    print('Best sample:', scores)
-    print('Best score:', best_score)
-    write_file(len(best_sample), best_sample, filename + '.out')
+    best_s = scores[0, 0]
+    print('Best sample:', scores[0, 0])
+    print('Best score:', scores[0, 1])
+    write_file(population[best_s].sum(), best_sample, filename + '.out')
 
 
 if __name__ == '__main__':
